@@ -1,0 +1,142 @@
+npx create-react-app calculator-app
+cd calculator-app
+npm start
+// src/Calculator.js
+import React, { useState } from 'react';
+import './Calculator.css';
+
+const Calculator = () => {
+  const [input, setInput] = useState('');
+  const [result, setResult] = useState('');
+
+  const handleButtonClick = (value) => {
+    setInput((prevInput) => prevInput + value);
+  };
+
+  const handleClear = () => {
+    setInput('');
+    setResult('');
+  };
+
+  const handleEqual = () => {
+    try {
+      setResult(eval(input)); // Note: Using eval() can be dangerous, use a safer alternative in production
+    } catch (error) {
+      setResult('Error');
+    }
+  };
+
+  return (
+    <div className="calculator">
+      <div className="display">
+        <div className="input">{input}</div>
+        <div className="result">{result}</div>
+      </div>
+      <div className="buttons">
+        <button onClick={handleClear}>C</button>
+        <button onClick={() => handleButtonClick('/')}>/</button>
+        <button onClick={() => handleButtonClick('*')}>*</button>
+        <button onClick={() => handleButtonClick('-')}>-</button>
+        <button onClick={() => handleButtonClick('7')}>7</button>
+        <button onClick={() => handleButtonClick('8')}>8</button>
+        <button onClick={() => handleButtonClick('9')}>9</button>
+        <button onClick={() => handleButtonClick('+')}>+</button>
+        <button onClick={() => handleButtonClick('4')}>4</button>
+        <button onClick={() => handleButtonClick('5')}>5</button>
+        <button onClick={() => handleButtonClick('6')}>6</button>
+        <button onClick={handleEqual}>=</button>
+        <button onClick={() => handleButtonClick('1')}>1</button>
+        <button onClick={() => handleButtonClick('2')}>2</button>
+        <button onClick={() => handleButtonClick('3')}>3</button>
+        <button onClick={() => handleButtonClick('0')}>0</button>
+        <button onClick={() => handleButtonClick('.')}>.</button>
+      </div>
+    </div>
+  );
+};
+
+export default Calculator;
+/* src/Calculator.css */
+.calculator {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
+
+.display {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 20px;
+  background-color: #222;
+  color: white;
+  font-size: 24px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.input, .result {
+  width: 100%;
+  text-align: right;
+}
+
+.result {
+  font-size: 20px;
+  color: #0f0;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+button {
+  padding: 20px;
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #f1f1f1;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #ddd;
+}
+
+button:active {
+  background-color: #bbb;
+}
+
+button:nth-child(4n) {
+  background-color: #ff9500;
+  color: white;
+}
+
+button:nth-child(4n):hover {
+  background-color: #e08700;
+}
+
+button:nth-child(4n):active {
+  background-color: #c76e00;
+}
+// src/App.js
+import React from 'react';
+import './App.css';
+import Calculator from './Calculator';
+
+function App() {
+  return (
+    <div className="App">
+      <Calculator />
+    </div>
+  );
+}
+
+export default App;
+npm start
